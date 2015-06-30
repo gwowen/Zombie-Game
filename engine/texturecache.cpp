@@ -22,7 +22,7 @@ namespace Engine {
     if(mit == _textureMap.end()) {
 
       //load the texture
-      GLTexture newTexture = ImageLoader::loadPNF(texturePath);
+      GLTexture newTexture = ImageLoader::loadPNG(texturePath);
 
       //insert into the map
       _textureMap.insert(make_pair(texturePath, newTexture));

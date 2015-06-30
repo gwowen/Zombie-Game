@@ -9,7 +9,7 @@ namespace Engine {
   class Camera2D
   {
   public:
-    Camera2D()
+    Camera2D();
     ~Camera2D();
 
     void init(int screenWidth, int screenHeight);

@@ -5,7 +5,7 @@
 #include <fstream>
 
 namespace Engine {
-  GLSLProgram::GLSLProgram() : _numAttributes(0), _programID(0), _vertexShader(0), _fragmentShader(0)
+  GLSLProgram::GLSLProgram() : _numAttributes(0), _programID(0), _vertexShaderID(0), _fragmentShaderID(0)
   {
 
   }
@@ -38,7 +38,7 @@ namespace Engine {
     glLinkProgram(_programID);
 
     GLint isLinked = 0;
-    glGetProgramiv(_programID, GL_INFO_LOG_LENGTH, &maxLength);
+    glGetProgramiv(_programID, GL_LINK_STATUS, (int *)&isLinked);
     if(isLinked == GL_FALSE)
     {
       GLint maxLength = 0;

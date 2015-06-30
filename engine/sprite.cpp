@@ -56,7 +56,7 @@ namespace Engine {
 
   //set all vertex colors to magneta
   for(int i = 0; i < 6; ++i) {
-    vertexData.setColor(255, 0, 255, 255);
+    vertexData[4].setColor(255, 0, 255, 255);
   }
 
   vertexData[4].setColor(0, 0, 255, 255);
@@ -69,7 +69,7 @@ namespace Engine {
   glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-void Sprite::Draw() {
+void Sprite::draw() {
 
   glBindTexture(GL_TEXTURE_2D, _texture.id);
 

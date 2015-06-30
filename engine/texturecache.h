@@ -1,6 +1,7 @@
 #ifndef TEXTURECACHE_H
 #define TEXTURECACHE_H
 
+#include <map>
 #include "gltexture.h"
 
 namespace Engine {
@@ -19,3 +20,5 @@ namespace Engine {
   };
 
 }
+
+#endif

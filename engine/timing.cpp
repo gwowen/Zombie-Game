@@ -3,7 +3,7 @@
 
 namespace Engine {
 
-  fpsLimiter::fpsLimite() {
+  fpsLimiter::fpsLimiter() {
 
   }
 
@@ -22,10 +22,10 @@ namespace Engine {
   float fpsLimiter::end() {
     calculateFPS();
 
-    float frameTicks = SDL_GetTicks() - _startTicks();
+    float frameTicks = (float)(SDL_GetTicks() - _startTicks);
 
     if(1000.0f / _maxFPS > frameTicks)
-      SDL_Delay((Uint32)(1000.0f / _maxFPS -frameTicks));
+      SDL_Delay((Uint32)(1000.0f / _maxFPS - frameTicks));
 
     return _fps;
   }
@@ -44,8 +44,11 @@ namespace Engine {
       //the ticks of the previous frame
       static float prevTicks = SDL_GetTicks();
 
+      //ticks for the current frame
+      Uint32 currentTicks = SDL_GetTicks();
+
       //calculate the number of ticks (ms) for this frame
-      _frameTime = currentTicks = prevTicks;
+      _frameTime = (float)(currentTicks - prevTicks);
       frameTimes[currentFrame % NUM_SAMPLES] = _frameTime;
 
       //the number of frames to average

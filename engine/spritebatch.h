@@ -1,12 +1,16 @@
 #ifndef SPRITEBATCH_H
 #define SPRITEBATCH_H
 
+#include <GL/glew.h>
+#include <glm/glm.hpp>
+#include <vector>
+
 #include "vertex.h"
 
 namespace Engine {
 
   //determines how we should sort the glyphs
-  enum class GlyphSortTypes {
+  enum class GlyphSortType {
     NONE,
     FRONT_TO_BACK,
     BACK_TO_FRONT,
@@ -46,13 +50,13 @@ namespace Engine {
     void init();
 
     //begins the spritebatch
-    void begin(GlyphSortType sortType = GlyphSortType::Texture);
+    void begin(GlyphSortType sortType = GlyphSortType::TEXTURE);
 
     //ends the spritebatch
     void end();
 
     //adds a glyph to the spritebatch
-    void draw(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint texture, float depth);
+    void draw(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint texture, float depth, const Color& color);
 
     //renders the entire spritebatch to the screen
     void renderBatch();
@@ -77,7 +81,7 @@ namespace Engine {
 
     GlyphSortType _sortType;
 
-    std::vector<Glyph*> _glyph;
+    std::vector<Glyph*> _glyphs;
     std::vector<RenderBatch> _renderBatches;
   };
 }

@@ -2,6 +2,7 @@
 #define IMAGELOADER_H
 
 #include "gltexture.h"
+#include <string>
 
 namespace Engine {
   class ImageLoader

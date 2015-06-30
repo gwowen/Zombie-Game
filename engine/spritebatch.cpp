@@ -65,7 +65,7 @@ namespace Engine {
 
     for(int i = 0; i < _renderBatches.size(); ++i) {
       glBindTexture(GL_TEXTURE_2D, _renderBatches[i].texture);
-      glDrawArrays(GL_TRIANGLES, _renderBatches[i].offset, renderBatches[i].numVertices)
+      glDrawArrays(GL_TRIANGLES, _renderBatches[i].offset, _renderBatches[i].numVertices);
     }
 
     glBindVertexArray(0);
@@ -82,7 +82,7 @@ namespace Engine {
       return;
 
     int offset = 0; //current offset
-    int vertex = 0; //current vertex
+    int cv = 0; //current vertex
 
     //add the first batch
     _renderBatches.emplace_back(offset, 6, _glyphs[0]->texture);
@@ -133,9 +133,9 @@ namespace Engine {
 
     glBindBuffer(GL_ARRAY_BUFFER, _vbo);
 
-    glEnableVertexAttribArrays(0);
-    glEnableVertexAttribArrays(1);
-    glEnableVertexAttribArrays(2);
+    glEnableVertexAttribArray(0);
+    glEnableVertexAttribArray(1);
+    glEnableVertexAttribArray(2);
 
     //this is the position attribute pointer
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, position));
@@ -163,7 +163,7 @@ namespace Engine {
     }
   }
 
-  bool SpriteBatch::compateFrontToBack(Glyph* a, Glyph *b) {
+  bool SpriteBatch::compareFrontToBack(Glyph* a, Glyph *b) {
     return (a->depth < b->depth);
   }
 

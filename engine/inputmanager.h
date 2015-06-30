@@ -12,7 +12,7 @@ namespace Engine {
     ~InputManager();
 
     void pressKey(unsigned int keyID);
-    void releaseKey(unsigned key keyID);
+    void releaseKey(unsigned int keyID);
 
     void setMouseCoords(float x, float y);
     bool isKeyPressed(unsigned int keyID);

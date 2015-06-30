@@ -17,7 +17,7 @@ namespace Engine {
 
     //read in the image file contents to a buffer
     if(IOManager::readFileToBuffer(filePath, in) == false)
-      fatalError("Failed to load PNG to buffer")
+      fatalError("Failed to load PNG to buffer");
 
     //decode the .png format into an array of pixels
     int errorCode = decodePNG(out, width, height, &(in[0]), in.size());

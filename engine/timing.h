@@ -10,7 +10,6 @@ namespace Engine {
     void setMaxFPS(float maxFPS);
 
     void begin();
-    void end();
 
     float end();
 

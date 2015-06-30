@@ -2,7 +2,7 @@
 
 namespace Engine {
 
-    Camera2D::Camera2D : _position(0.0f, 0.0f),
+    Camera2D::Camera2D() : _position(0.0f, 0.0f),
     _cameraMatrix(1.0f),
     _orthoMatrix(1.0f),
     _scale(1.0f),
@@ -37,7 +37,7 @@ namespace Engine {
         glm::vec3 scale(_scale, _scale, 0.0f);
         _cameraMatrix = glm::scale(glm::mat4(1.0f), scale) * _cameraMatrix;
 
-        _needMatrixUpdate = false;
+        _needsMatrixUpdate = false;
       }
     }
 

@@ -1,6 +1,8 @@
 #ifndef IOMANAGER_H
 #define IOMANAGER_H
 
+#include <string>
+#include <vector>
 
 namespace Engine {
   class IOManager
