@@ -1,6 +1,6 @@
 #include "maingame.h"
 
-#include <Engine/engine.h>
+#include "../engine/engine.h"
 
 #include <SDL2/SDL.h>
 #include <iostream>

@@ -1,10 +1,10 @@
 #ifndef MAINGAME_H
 #define MAINGAME_H
 
-#include <engine/window.h>
-#include <engine/glslprogram.h>
-#include <engine/camera2d.h>
-#include <engine/inputmanager.h>
+#include "../engine/window.h"
+#include "../engine/glslprogram.h"
+#include "../engine/camera2d.h"
+#include "../engine/inputmanager.h"
 
 class MainGame {
 public:
