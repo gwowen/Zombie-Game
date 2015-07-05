@@ -43,6 +43,8 @@ private:
   Engine::Camera2D _camera;
 
   std::vector<Level*> _levels; //vector of all levels
+
+  int _screenWidth, _screenHeight;
 };
 
 
