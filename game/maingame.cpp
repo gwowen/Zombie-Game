@@ -14,6 +14,10 @@ MainGame::~MainGame() {
 }
 
 void MainGame::run() {
+  _levels.push_back(new Level("../../game/Levels/level1.txt"));
+
+  int a;
+  std::cin >> a;
 
 }
 

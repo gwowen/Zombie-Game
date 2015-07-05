@@ -4,7 +4,7 @@
 #include <GL/glew.h>
 
 namespace Engine {
-  
+
   struct Position {
     float x;
     float y;

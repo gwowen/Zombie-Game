@@ -5,6 +5,7 @@
 #include "../engine/glslprogram.h"
 #include "../engine/camera2d.h"
 #include "../engine/inputmanager.h"
+#include "level.h"
 
 class MainGame {
 public:
@@ -17,9 +18,17 @@ private:
 
   void initSystems();
 
+  void initLevel();
+
   void initShaders();
 
   void gameLoop();
+
+  void updateAgents();
+
+  void updateBullets();
+
+  void checkVictory();
 
   void processInput();
 
@@ -32,6 +41,8 @@ private:
   Engine::InputManager _inputManager;
 
   Engine::Camera2D _camera;
+
+  std::vector<Level*> _levels; //vector of all levels
 };
 
 
