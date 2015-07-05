@@ -1,14 +1,16 @@
 #include "maingame.h"
 
 #include "../engine/engine.h"
+#include "../engine/timing.h"
 
 #include <SDL2/SDL.h>
 #include <iostream>
 
 MainGame::MainGame() :
   _screenWidth(1024),
-  _screenHeight(768)
-
+  _screenHeight(768),
+  _gameState(GameState::PLAY),
+  _fps(0.0f)
 {
 
 }
@@ -21,7 +23,9 @@ MainGame::~MainGame() {
 }
 
 void MainGame::run() {
-  _levels.push_back(new Level("../../game/Levels/level1.txt"));
+  initSystems();
+
+  gameLoop();
 
 }
 
@@ -47,6 +51,18 @@ void MainGame::initShaders() {
 
 void MainGame::gameLoop() {
 
+  Engine::fpsLimiter fpsLimiter;
+  fpsLimiter.setMaxFPS(60.0f);
+
+  while(_gameState == GameState::PLAY) {
+
+    fpsLimiter.begin();
+
+    processInput();
+    drawGame();
+    _fps = fpsLimiter.end();
+
+  }
 }
 
 void MainGame::processInput() {

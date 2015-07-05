@@ -51,6 +51,7 @@ Level::Level(const std::string& fileName) {
               _spriteBatch.draw(destRect,
                                 uvRect,
                                 Engine::ResourceManager::getTexture("../../game/Textures/red_bricks.png").id,
+                                0.0f,
                                 whiteColor);
               break;
 
@@ -65,10 +66,11 @@ Level::Level(const std::string& fileName) {
             _spriteBatch.draw(destRect,
                               uvRect,
                               Engine::ResourceManager::getTexture("../../game/Textures/light_bricks.png").id,
+                              0.0f,
                               whiteColor);
             break;
           case '@':
-            _levelData[y][x] = '.'
+            _levelData[y][x] = '.';
             _startPlayerPos.x = x * TILE_WIDTH;
             _startPlayerPos.y = y * TILE_WIDTH;
             break;

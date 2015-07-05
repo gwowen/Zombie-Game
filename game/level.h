@@ -6,6 +6,8 @@
 
 #include "../engine/spritebatch.h"
 
+const int TILE_WIDTH = 64;
+
 class Level {
 public:
 

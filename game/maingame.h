@@ -7,6 +7,11 @@
 #include "../engine/inputmanager.h"
 #include "level.h"
 
+enum class GameState {
+  PLAY,
+  EXIT
+};
+
 class MainGame {
 public:
   MainGame();
@@ -45,6 +50,10 @@ private:
   std::vector<Level*> _levels; //vector of all levels
 
   int _screenWidth, _screenHeight;
+
+  int _fps;
+
+  GameState _gameState;
 };
 
 
