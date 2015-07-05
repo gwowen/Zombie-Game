@@ -5,23 +5,35 @@
 #include <SDL2/SDL.h>
 #include <iostream>
 
-MainGame::MainGame() {
+MainGame::MainGame() :
+  _screenWidth(1024),
+  _screenHeight(768)
+
+{
 
 }
 
 MainGame::~MainGame() {
+
+  for(int i = 0; i < _levels.size(); ++i)
+    delete _levels[i];
 
 }
 
 void MainGame::run() {
   _levels.push_back(new Level("../../game/Levels/level1.txt"));
 
-  int a;
-  std::cin >> a;
-
 }
 
 void MainGame::initSystems() {
+  Engine::init();
+
+  _window.create("Zombie Game", _screenWidth, _screenHeight, 0);
+
+  initShaders();
+
+  _levels.push_back(new Level("../../game/Levels/level1.txt"));
+
 
 }
 
