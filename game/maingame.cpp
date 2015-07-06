@@ -36,8 +36,11 @@ void MainGame::initSystems() {
 
   initShaders();
 
+  _camera.init(_screenWidth, _screenHeight);
+
   _levels.push_back(new Level("../../game/Levels/level1.txt"));
 
+  _currentLevel = 0;
 
 }
 
@@ -59,6 +62,7 @@ void MainGame::gameLoop() {
     fpsLimiter.begin();
 
     processInput();
+    _camera.update();
     drawGame();
     _fps = fpsLimiter.end();
 
@@ -72,9 +76,8 @@ void MainGame::processInput() {
   while(SDL_PollEvent(&event)) {
     switch(event.type) {
       case SDL_QUIT:
-          _gameState = GameState::EXIT; 
+          _gameState = GameState::EXIT;
         break;
-
       case SDL_MOUSEMOTION:
         _inputManager.setMouseCoords(event.motion.x, event.motion.y);
         break;
@@ -98,6 +101,23 @@ void MainGame::drawGame() {
   glClearDepth(1.0);
 
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+  _textureProgram.use();
+
+  //make sure the game uses texture unit 0
+  glActiveTexture(GL_TEXTURE0);
+  GLint textureUniform = _textureProgram.getUniformLocation("mySampler");
+  glUniform1i(textureUniform, 0);
+
+  //grab the camera matrix
+  glm::mat4 projectionMatrix = _camera.getCameraMatrix();
+  GLint pUniform = _textureProgram.getUniformLocation("P");
+  glUniformMatrix4fv(pUniform, 1, GL_FALSE, &projectionMatrix[0][0]);
+
+  //draw the level
+  _levels[_currentLevel]->draw();
+
+  _textureProgram.unuse();
 
   _window.swapBuffer();
 }

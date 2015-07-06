@@ -53,6 +53,8 @@ private:
 
   int _fps;
 
+  int _currentLevel;
+
   GameState _gameState;
 };
 

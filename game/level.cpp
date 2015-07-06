@@ -24,6 +24,8 @@ Level::Level(const std::string& fileName) {
   while(std::getline(file, tmp))
     _levelData.push_back(tmp);
 
+
+  _spriteBatch.init();
   _spriteBatch.begin();
 
   //texture coordinates rect
@@ -86,7 +88,6 @@ Level::Level(const std::string& fileName) {
         }
       }
   }
-
 
   _spriteBatch.end();
 
