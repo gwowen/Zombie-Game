@@ -6,7 +6,7 @@ in vec2 fragmentUV;
 
 out vec4 color;
 
-uniform sampler2d mySampler;
+uniform sampler2D mySampler;
 
 void main() {
 
