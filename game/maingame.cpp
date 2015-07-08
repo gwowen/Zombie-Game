@@ -115,7 +115,7 @@ void MainGame::drawGame() {
   glUniformMatrix4fv(pUniform, 1, GL_FALSE, &projectionMatrix[0][0]);
 
   //draw the level
-  _levels[_currentLevel]->draw();
+  //_levels[_currentLevel]->draw();
 
   _textureProgram.unuse();
 
