@@ -131,6 +131,10 @@ namespace Engine {
 
     glBindVertexArray(_vao);
 
+    //generate the vbo
+    if(_vbo == 0)
+      glGenBuffers(1, &_vbo);
+
     glBindBuffer(GL_ARRAY_BUFFER, _vbo);
 
     glEnableVertexAttribArray(0);
