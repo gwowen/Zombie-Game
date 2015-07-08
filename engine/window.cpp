@@ -35,6 +35,7 @@ namespace Engine {
       if(glContext == nullptr)
         fatalError("SDL GL context could not be created");
 
+      glewExperimental = GL_TRUE;
       GLenum error = glewInit();
       if(error != GLEW_OK)
         fatalError("Could not initialize GLEW!");
