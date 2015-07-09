@@ -5,6 +5,7 @@
 #include "../engine/glslprogram.h"
 #include "../engine/camera2d.h"
 #include "../engine/inputmanager.h"
+#include "player.h"
 #include "level.h"
 
 enum class GameState {
@@ -39,13 +40,18 @@ private:
 
   void drawGame();
 
+
+  //member variables
+
   Engine::Window _window;
 
   Engine::GLSLProgram _textureProgram;
 
   Engine::InputManager _inputManager;
 
-  Engine::Camera2D _camera;
+  Engine::Camera2D _camera; //main Camera
+
+  Engine::SpriteBatch _agentSpriteBatch; //draws all agents
 
   std::vector<Level*> _levels; //vector of all levels
 
@@ -54,6 +60,10 @@ private:
   int _fps;
 
   int _currentLevel;
+
+  Player* _player;
+
+  std::vector<Human*> _humans;
 
   GameState _gameState;
 };

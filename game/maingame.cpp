@@ -10,7 +10,8 @@ MainGame::MainGame() :
   _screenWidth(1024),
   _screenHeight(768),
   _gameState(GameState::PLAY),
-  _fps(0.0f)
+  _fps(0),
+  _player(nullptr)
 {
 
 }
@@ -24,7 +25,7 @@ MainGame::~MainGame() {
 
 void MainGame::run() {
   initSystems();
-
+  initLevel();
   gameLoop();
 
 }
@@ -34,15 +35,31 @@ void MainGame::initSystems() {
 
   _window.create("Zombie Game", _screenWidth, _screenHeight, 0);
 
+  glClearColor(0.7f, 0.7f, 0.7f, 1.0f);
+
   initShaders();
+
+  _agentSpriteBatch.init();
 
   _camera.init(_screenWidth, _screenHeight);
 
+}
+
+
+
+
+
+void MainGame::initLevel() {
   _levels.push_back(new Level("../../game/Levels/level1.txt"));
 
   _currentLevel = 0;
 
+  _player = new Player();
+  _player->init(1.0f, _levels[_currentLevel]->getStartPlayerPos());
+
+  _humans.push_back(_player);
 }
+
 
 void MainGame::initShaders() {
   _textureProgram.compileShaders("../../game/Shaders/textureShaderVert.glsl", "../../game/Shaders/textureShaderFrag.glsl");
@@ -116,6 +133,19 @@ void MainGame::drawGame() {
 
   //draw the level
   _levels[_currentLevel]->draw();
+
+
+  //begin drawing agents
+  _agentSpriteBatch.begin();
+
+  //draw the humans
+  for(int i = 0; i < _humans.size(); ++i) {
+    _humans[i]->draw(_agentSpriteBatch);
+  }
+
+  _agentSpriteBatch.end();
+
+  _agentSpriteBatch.renderBatch();
 
   _textureProgram.unuse();
 

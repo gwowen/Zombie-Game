@@ -9,6 +9,14 @@
 class Gun;
 
 class Player : public Human {
+public:
+  Player();
+  virtual ~Player();
+
+
+  void init(int speed, glm::vec2 position);
+
+  void update(Engine::InputManager& inputManager);
 
 };
 

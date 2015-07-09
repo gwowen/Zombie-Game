@@ -15,7 +15,14 @@ class Agent {
 public:
   Agent();
   virtual ~Agent();
-  
+
+  void draw(Engine::SpriteBatch& _spriteBatch);
+
+
+protected:
+  glm::vec2 _position;
+  Engine::Color _color;
+  float _speed;
 
 };
 
