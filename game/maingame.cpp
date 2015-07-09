@@ -48,14 +48,13 @@ void MainGame::initSystems() {
 
 
 
-
 void MainGame::initLevel() {
   _levels.push_back(new Level("../../game/Levels/level1.txt"));
 
   _currentLevel = 0;
 
   _player = new Player();
-  _player->init(1.0f, _levels[_currentLevel]->getStartPlayerPos());
+  _player->init(1.0f, _levels[_currentLevel]->getStartPlayerPos(), &_inputManager);
 
   _humans.push_back(_player);
 }
@@ -79,11 +78,22 @@ void MainGame::gameLoop() {
     fpsLimiter.begin();
 
     processInput();
+
+    _camera.setPosition(_player->getPosition());
     _camera.update();
     drawGame();
     _fps = fpsLimiter.end();
 
   }
+}
+
+
+void MainGame::updateAgents() {
+  for(int i = 0; i < _humans.size(); ++i) {
+    _humans[i]->update();
+  }
+
+  //don't forget to update zombies!
 }
 
 void MainGame::processInput() {

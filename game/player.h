@@ -14,9 +14,14 @@ public:
   virtual ~Player();
 
 
-  void init(int speed, glm::vec2 position);
+  void init(float speed, glm::vec2 position, Engine::InputManager* inputManager);
 
-  void update(Engine::InputManager& inputManager);
+  void update();
+
+
+
+private:
+  Engine::InputManager* _inputManager;
 
 };
 

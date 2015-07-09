@@ -30,6 +30,7 @@ private:
 
   void gameLoop();
 
+  //update all agents
   void updateAgents();
 
   void updateBullets();
