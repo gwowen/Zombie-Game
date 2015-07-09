@@ -54,7 +54,7 @@ void MainGame::initLevel() {
   _currentLevel = 0;
 
   _player = new Player();
-  _player->init(1.0f, _levels[_currentLevel]->getStartPlayerPos(), &_inputManager);
+  _player->init(4.0f, _levels[_currentLevel]->getStartPlayerPos(), &_inputManager);
 
   _humans.push_back(_player);
 }
@@ -78,6 +78,8 @@ void MainGame::gameLoop() {
     fpsLimiter.begin();
 
     processInput();
+
+    updateAgents();
 
     _camera.setPosition(_player->getPosition());
     _camera.update();
@@ -112,7 +114,7 @@ void MainGame::processInput() {
         _inputManager.pressKey(event.key.keysym.sym);
         break;
       case SDL_KEYUP:
-        _inputManager.pressKey(event.button.button);
+        _inputManager.releaseKey(event.key.keysym.sym);
         break;
       case SDL_MOUSEBUTTONDOWN:
         _inputManager.pressKey(event.button.button);
