@@ -2,6 +2,7 @@
 
 #include "../engine/engine.h"
 #include "../engine/timing.h"
+#include "zombie.h"
 
 #include <SDL2/SDL.h>
 #include <iostream>
@@ -92,7 +93,9 @@ void MainGame::gameLoop() {
 
 void MainGame::updateAgents() {
   for(int i = 0; i < _humans.size(); ++i) {
-    _humans[i]->update();
+    _humans[i]->update(_levels[_currentLevel]->getLevelData(),
+                      _humans,
+                      _zombies);
   }
 
   //don't forget to update zombies!

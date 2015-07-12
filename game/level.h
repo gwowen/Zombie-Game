@@ -20,6 +20,7 @@ public:
 
   glm::vec2 getStartPlayerPos() const { return _startPlayerPos; }
   const std::vector<glm::vec2>& getZombieStartPositions() const { return _zombieStartPositions; }
+  const std::vector<std::string>& getLevelData() const { return _levelData; }
 
 private:
   std::vector<std::string> _levelData;

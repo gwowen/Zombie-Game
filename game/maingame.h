@@ -8,6 +8,8 @@
 #include "player.h"
 #include "level.h"
 
+class Zombie;
+
 enum class GameState {
   PLAY,
   EXIT
@@ -65,6 +67,8 @@ private:
   Player* _player;
 
   std::vector<Human*> _humans;
+
+  std::vector<Zombie*> _zombies;
 
   GameState _gameState;
 };
