@@ -35,10 +35,6 @@ void Agent::collideWithLevel(const std::vector<std::string>& levelData) {
  for(int i = 0; i < collideTilePositions.size(); ++i)
     collideWithTile(collideTilePositions[i]);
 
-
-
-
-
 }
 
 void Agent::draw(Engine::SpriteBatch& _spriteBatch) {
@@ -63,13 +59,14 @@ void Agent::checkTilePosition(const std::vector<std::string>& levelData,
                               float y) {
 
                             //check the four corners
-                            //first corner
+
       glm::vec2 cornerPos = glm::vec2(floor(_position.x / (float)TILE_WIDTH),
                                         floor(_position.y / (float)TILE_WIDTH));
 
-    if(levelData[cornerPos.y][cornerPos.x] != '.')
+    if(levelData[cornerPos.y][cornerPos.x] != '.') {
     //store the center of the tile
         collideTilePositions.push_back(cornerPos * (float)TILE_WIDTH + glm::vec2((float)(TILE_WIDTH) / 2.0f));
+      }
 }
 
 //AABB collision
