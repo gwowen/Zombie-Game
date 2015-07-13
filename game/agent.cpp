@@ -12,7 +12,7 @@ Agent::~Agent()
 
 }
 
-void Agent::collideWithLevel(const std::vector<std::string>& levelData) {
+bool Agent::collideWithLevel(const std::vector<std::string>& levelData) {
 
   std::vector<glm::vec2> collideTilePositions;
 
@@ -32,9 +32,17 @@ void Agent::collideWithLevel(const std::vector<std::string>& levelData) {
                   _position.x + AGENT_WIDTH,
                   _position.y + AGENT_WIDTH);
 
- for(int i = 0; i < collideTilePositions.size(); ++i)
-    collideWithTile(collideTilePositions[i]);
+  //check if there was no collision
+  if(collideTilePositions.size() == 0) {
+    return false;
+  }
 
+  //do the collision
+ for(int i = 0; i < collideTilePositions.size(); ++i) {
+    collideWithTile(collideTilePositions[i]);
+  }
+
+  return true;
 }
 
 void Agent::draw(Engine::SpriteBatch& _spriteBatch) {
@@ -54,44 +62,60 @@ void Agent::draw(Engine::SpriteBatch& _spriteBatch) {
 }
 
 void Agent::checkTilePosition(const std::vector<std::string>& levelData,
-                              std::vector<glm::vec2> collideTilePositions,
+                              std::vector<glm::vec2>& collideTilePositions,
                               float x,
                               float y) {
 
-                            //check the four corners
+      //get the position of the tile in grid-space
+      glm::vec2 gridPos = glm::vec2(floor(x / (float)TILE_WIDTH),
+                                    floor(y / (float)TILE_WIDTH));
 
-      glm::vec2 cornerPos = glm::vec2(floor(_position.x / (float)TILE_WIDTH),
-                                        floor(_position.y / (float)TILE_WIDTH));
+    //if we're outside the world, just return
+    if( gridPos.x < 0 || gridPos.x >= levelData[0].size() ||
+        gridPos.y < 0 || gridPos.y >= levelData.size()) {
+          return;
+        }
 
-    if(levelData[cornerPos.y][cornerPos.x] != '.') {
-    //store the center of the tile
-        collideTilePositions.push_back(cornerPos * (float)TILE_WIDTH + glm::vec2((float)(TILE_WIDTH) / 2.0f));
+    //check we're not colliding with an air tile, else we add it to the collision pile
+    if(levelData[gridPos.y][gridPos.x] != '.') {
+        collideTilePositions.push_back(gridPos * (float)TILE_WIDTH + glm::vec2((float)(TILE_WIDTH) / 2.0f));
       }
 }
 
 //AABB collision
 void Agent::collideWithTile(glm::vec2 tilePos) {
 
-  const float AGENT_RADIUS = (float)AGENT_WIDTH  / 2.0f;
   const float TILE_RADIUS = (float)TILE_WIDTH / 2.0f;
+  //the minimum distance before a collision occurs
   const float MIN_DISTANCE = AGENT_RADIUS + TILE_RADIUS;
 
+  //position of the center of the agent
+  glm::vec2 centerAgentPos = _position + glm::vec2(AGENT_RADIUS);
+  //vector from the agent to the tile
+  glm::vec2 distVec = centerAgentPos - tilePos;
 
-  glm::vec2 distVec = _position - tilePos;
+  //check the depth of the collision
+  float xDepth = MIN_DISTANCE - std::abs(distVec.x);
+  float yDepth = MIN_DISTANCE - std::abs(distVec.y);
 
-  float xDepth = MIN_DISTANCE - distVec.x;
-  float yDepth = MIN_DISTANCE - distVec.y;
+  //if either of the depths are > 0, then we have collided
+  if(xDepth > 0 && yDepth > 0) {
 
-  float absXDepth = std::abs(xDepth);
-  float absYDepth = std::abs(yDepth);
-
-  if(absXDepth > 0 || absYDepth > 0) {
-
-    if(absXDepth < absYDepth) {
-      _position += xDepth;
+    //check with collision depth is less
+    if(std::max(xDepth, 0.0f) < std::max(yDepth, 0.0f)) {
+      //x collision depth is smaller so we push in X direction
+      if(distVec.x < 0) {
+        _position.x -= xDepth;
+      } else {
+        _position.x += xDepth;
+      }
     } else {
-      _position += yDepth;
+      //y collision depth is smaller so we push in Y direction
+      if(distVec.y < 0) {
+        _position.y -= yDepth;
+      } else {
+        _position.y += yDepth;
+      }
     }
   }
-
 }

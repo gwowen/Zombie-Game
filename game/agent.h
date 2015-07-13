@@ -22,7 +22,7 @@ public:
                       std::vector<Human*>& humans,
                       std::vector<Zombie*>& zombies) = 0;
 
-  void collideWithLevel(const std::vector<std::string>& levelData);
+  bool collideWithLevel(const std::vector<std::string>& levelData);
 
   void draw(Engine::SpriteBatch& _spriteBatch);
 
@@ -36,7 +36,7 @@ protected:
 
 
   void checkTilePosition(const std::vector<std::string>& levelData,
-                          std::vector<glm::vec2> collideTilePositions,
+                          std::vector<glm::vec2>& collideTilePositions,
                           float x, float y);
 
   void collideWithTile(glm::vec2 tilePos);
