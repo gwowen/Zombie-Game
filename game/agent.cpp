@@ -100,7 +100,7 @@ void Agent::collideWithTile(glm::vec2 tilePos) {
 
   //if either of the depths are > 0, then we have collided
   if(xDepth > 0 && yDepth > 0) {
-
+    
     //check with collision depth is less
     if(std::max(xDepth, 0.0f) < std::max(yDepth, 0.0f)) {
       //x collision depth is smaller so we push in X direction
