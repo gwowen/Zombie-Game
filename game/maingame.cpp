@@ -14,6 +14,7 @@
 
 const float HUMAN_SPEED = 1.0f;
 const float PLAYER_SPEED = 5.0f;
+const float ZOMBIE_SPEED = 1.3f;
 
 MainGame::MainGame() :
   _screenWidth(1024),
@@ -29,6 +30,12 @@ MainGame::~MainGame() {
 
   for(int i = 0; i < _levels.size(); ++i)
     delete _levels[i];
+
+  for(int i = 0; i <_humans.size(); ++i)
+    delete _humans[i];
+
+  for(int i = 0; i < _zombies.size(); ++i)
+    delete _zombies[i];
 
 }
 
@@ -79,6 +86,14 @@ void MainGame::initLevel() {
     glm::vec2 pos(randX(randomEngine) * TILE_WIDTH, randY(randomEngine) * TILE_WIDTH);
     _humans.back()->init(HUMAN_SPEED, pos);
   }
+
+
+  //add zombies
+  const std::vector<glm::vec2>& zombiePositions = _levels[_currentLevel]->getZombieStartPositions();
+  for(int i = 0; i < zombiePositions.size(); ++i) {
+    _zombies.push_back(new Zombie);
+    _zombies.back()->init(ZOMBIE_SPEED, zombiePositions[i]);
+  }
 }
 
 
@@ -119,7 +134,12 @@ void MainGame::updateAgents() {
                       _zombies);
   }
 
-  //don't forget to update zombies!
+  //update zombies
+  for(int i = 0; i < _zombies.size(); ++i) {
+    _zombies[i]->update(_levels[_currentLevel]->getLevelData(),
+                      _humans,
+                      _zombies);
+  }
 }
 
 void MainGame::processInput() {
@@ -178,6 +198,12 @@ void MainGame::drawGame() {
   for(int i = 0; i < _humans.size(); ++i) {
     _humans[i]->draw(_agentSpriteBatch);
   }
+
+  //draw the zombies
+  for(int i = 0; i < _zombies.size(); ++i) {
+    _zombies[i]->draw(_agentSpriteBatch);
+  }
+
 
   _agentSpriteBatch.end();
 
