@@ -8,7 +8,8 @@
 class Human;
 class Zombie;
 class Agent;
-class Grid;
+
+const int BULLET_RADIUS = 5;
 
 class Bullet {
 
