@@ -24,7 +24,11 @@ public:
 
   bool collideWithLevel(const std::vector<std::string>& levelData);
 
+  bool collideWithAgent(Agent* agent);
+
   void draw(Engine::SpriteBatch& _spriteBatch);
+
+  bool applyDamage(float damage);
 
   //getters
   glm::vec2 getPosition() const { return _position;}
@@ -33,6 +37,7 @@ protected:
   glm::vec2 _position;
   Engine::Color _color;
   float _speed;
+  float _health;
 
 
   void checkTilePosition(const std::vector<std::string>& levelData,

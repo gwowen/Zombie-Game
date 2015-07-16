@@ -19,6 +19,20 @@ private:
 
   void fire(const glm::vec2& direction, const glm::vec2& position, std::vector<Bullet>& bullets);
 
+  std::string _name;
+
+  int _fireRate; // fire rate in terms of frames
+
+  int _buletsPerShot; //how many bullets are fired at the time
+
+  float _spread; //accuracy
+
+  float _bulletSpeed;
+
+  int _bulletDamage;
+
+  int _frameCounter; //counts frames so we know when to shoot bullets
+  
 };
 
 
