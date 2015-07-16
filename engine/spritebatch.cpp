@@ -71,6 +71,8 @@ namespace Engine {
     glBindVertexArray(0);
   }
 
+//loop through all of the glyphs to add them to the batch, and then
+//if we have a new texture add it to the batch
   void SpriteBatch::createRenderBatches() {
     //this will store all the vertices that need uploading
     std::vector<Vertex> vertices;
@@ -84,7 +86,7 @@ namespace Engine {
     int offset = 0; //current offset
     int cv = 0; //current vertex
 
-    //add the first batch
+    //add the first renderBatch
     _renderBatches.emplace_back(offset, 6, _glyphs[0]->texture);
     vertices[cv++] = _glyphs[0]->topLeft;
     vertices[cv++] = _glyphs[0]->bottomLeft;
@@ -118,7 +120,7 @@ namespace Engine {
     glBindBuffer(GL_ARRAY_BUFFER, _vbo);
     //orphan the buffer (for speed)
     glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), nullptr, GL_DYNAMIC_DRAW);
-    //uploade the data
+    //upload the data
     glBufferSubData(GL_ARRAY_BUFFER, 0, vertices.size() * sizeof(Vertex), vertices.data());
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -141,11 +143,9 @@ namespace Engine {
     glEnableVertexAttribArray(1);
     glEnableVertexAttribArray(2);
 
-    //this is the position attribute pointer
+    //position, color and uv (texture) attributes respectively
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, position));
-    //this is the color attribute pointer
     glVertexAttribPointer(1, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(Vertex), (void*)offsetof(Vertex, color));
-    //this is the UV attribute pointer
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, uv));
 
     glBindVertexArray(0);
@@ -153,7 +153,8 @@ namespace Engine {
   }
 
   void SpriteBatch::sortGlyphs() {
-
+    //use stable_sort to ensure two equal elements retain the same
+    //order
     switch(_sortType) {
       case GlyphSortType::BACK_TO_FRONT:
         std::stable_sort(_glyphs.begin(), _glyphs.end(), compareBackToFront);
@@ -175,6 +176,9 @@ namespace Engine {
     return (a->depth > b->depth);
   }
 
+  //if all the textures are the same (e.g. a lot of bricks, etc)
+  //they should all have the order preserved so this will prevent
+  //unnecessary batches being drawn
   bool SpriteBatch::compareTexture(Glyph* a, Glyph* b) {
     return (a->texture < b->texture);
   }

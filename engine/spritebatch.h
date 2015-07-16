@@ -17,7 +17,8 @@ namespace Engine {
     TEXTURE
   };
 
-  //a glyph is a single quad. These are added via SpriteBatch::draw
+  //A glyph is a single quad, containing the texture and position of
+  //objects in the game. We add these to spritebatches via the Draw method
   struct Glyph {
     GLuint texture;
     float depth;
@@ -28,7 +29,8 @@ namespace Engine {
     Vertex bottomRight;
   };
 
-  //each render batch is used for a single draw call
+  //A RenderBatch is used for a single draw call. We create a vector of renderbatches
+  //and then go through the vector to draw it to the screen.
   class RenderBatch {
   public:
     RenderBatch(GLuint Offset, GLuint NumVertices, GLuint Texture) : offset(Offset),
@@ -39,7 +41,8 @@ namespace Engine {
       GLuint texture;
   };
 
-  //the spritebatch class is a more efficient way of drawing sprites
+  //SpriteBatch draws things queued up in renderbatches to the screen.
+  //come up with a better comment later.
   class SpriteBatch
   {
   public:

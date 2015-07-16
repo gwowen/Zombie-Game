@@ -23,7 +23,7 @@ private:
 
   int _fireRate; // fire rate in terms of frames
 
-  int _buletsPerShot; //how many bullets are fired at the time
+  int _bulletsPerShot; //how many bullets are fired at the time
 
   float _spread; //accuracy
 
@@ -32,7 +32,7 @@ private:
   int _bulletDamage;
 
   int _frameCounter; //counts frames so we know when to shoot bullets
-  
+
 };
 
 
