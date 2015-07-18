@@ -116,7 +116,7 @@ namespace Engine {
       offset += 6;
     }
 
-    //bind our vbo
+
     glBindBuffer(GL_ARRAY_BUFFER, _vbo);
     //orphan the buffer (for speed)
     glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), nullptr, GL_DYNAMIC_DRAW);

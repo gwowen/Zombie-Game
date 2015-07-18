@@ -94,6 +94,11 @@ void MainGame::initLevel() {
     _zombies.push_back(new Zombie);
     _zombies.back()->init(ZOMBIE_SPEED, zombiePositions[i]);
   }
+
+  const float BULLET_SPEED = 20.0f;
+  _player->addGun(new Gun("Magnum", 10, 1, 5.0f, 30, BULLET_SPEED));
+  _player->addGun(new Gun("Shotgun", 30, 12, 20.0f, 4, BULLET_SPEED));
+  _player->addGun(new Gun("MP5", 2, 1, 10.0f, 20, BULLET_SPEED));
 }
 
 
@@ -118,16 +123,21 @@ void MainGame::gameLoop() {
 
     updateAgents();
 
-    _camera.setPosition(_player->getPosition());
-    _camera.update();
-    drawGame();
-    _fps = fpsLimiter.end();
+    updateBullets();
 
+    _camera.setPosition(_player->getPosition());
+
+    _camera.update();
+
+    drawGame();
+
+    _fps = fpsLimiter.end();
   }
 }
 
 
 void MainGame::updateAgents() {
+  //update humans
   for(int i = 0; i < _humans.size(); ++i) {
     _humans[i]->update(_levels[_currentLevel]->getLevelData(),
                       _humans,
@@ -139,6 +149,50 @@ void MainGame::updateAgents() {
     _zombies[i]->update(_levels[_currentLevel]->getLevelData(),
                       _humans,
                       _zombies);
+  }
+
+  //update zombie collisions
+  for(int i = 0; i < _zombies.size(); ++i) {
+    //collide with other zombies
+    for(int j = i + 1; j < _zombies.size(); ++j) {
+      _zombies[i]->collideWithAgent(_zombies[j]);
+    }
+    //collide with humans
+    for(int j = 1; j < _humans.size(); ++j) {
+      if(_zombies[i]->collideWithAgent(_humans[j])) {
+        //add the new zombie
+        _zombies.push_back(new Zombie);
+        _zombies.back()->init(ZOMBIE_SPEED, _humans[j]->getPosition());
+        //delete the human
+        delete _humans[j];
+        _humans[j] = _humans.back();
+        _humans.pop_back();
+      }
+    }
+
+  //collide with player
+    if(_zombies[i]->collideWithAgent(_player)) {
+        Engine::fatalError("You lose!");
+      }
+  }
+
+  //update human collisions
+  for(int i = 0; i < _humans.size(); ++i) {
+    for(int j = i + 1; j < _humans.size(); ++j) {
+      _humans[i]->collideWithAgent(_humans[j]);
+    }
+  }
+}
+
+void MainGame::updateBullets() {
+
+}
+
+void MainGame::checkVictory() {
+  if(_zombies.empty()) {
+    std::printf("*** You win! ***\n You killed %d humans and %d zombies. There are  %d/%d civilians remaining",
+                _numHumansKilled, _numZombiesKilled, _humans.size() - 1, _levels[_currentLevel]->getNumHumans());
+    Engine::fatalError("");
   }
 }
 
