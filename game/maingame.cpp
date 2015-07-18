@@ -185,6 +185,62 @@ void MainGame::updateAgents() {
 }
 
 void MainGame::updateBullets() {
+  //update and collide with wordl
+  for(int i = 0; i < _bullets.size(); ) {
+    //if update returns true, bullet collided with a wall
+    if(_bullets[i].update(_levels[_currentLevel]->getLevelData())) {
+      _bullets[i] = _bullets.back();
+      _bullets.pop_back();
+    } else {
+      ++i;
+    }
+  }
+
+  bool wasBulletRemoved;
+
+  //collide with humans and zombies
+  for(int i =0; i < _bullets.size(); ++i) {
+    wasBulletRemoved = false;
+    //loop through zombies
+    for(int j = 0; j < _zombies.size(); ) {
+      //check collision
+      if(_bullets[i].collideWithAgent(_zombies[j])) {
+        //damage zombie and kill it if it's out of health
+        if(_zombies[j]->applyDamage(_bullets[i].getDamage())) {
+          //if the zombie died remove it
+          delete _zombies[j];
+          _zombies[j] = _zombies.back();
+          _zombies.pop_back();
+          ++_numZombiesKilled;
+        } else {
+          ++j;
+        }
+
+        //remove the bullet
+        _bullets[i] = _bullets.back();
+        _bullets.pop_back();
+        wasBulletRemove = true;
+        --i;
+        break;
+      } else {
+        ++j
+      }
+    }
+
+    //loop through humans
+    if(wasBulletRemoved == false) {
+      for(int j = 1; j < _humans.size(); ) {
+        //check collision
+        if(_bullets[i].collideWithAgent(_humans[j])) {
+
+        }
+      }
+    }
+
+
+  }
+
+
 
 }
 
