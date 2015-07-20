@@ -223,7 +223,7 @@ void MainGame::updateBullets() {
         --i;
         break;
       } else {
-        ++j
+        ++j;
       }
     }
 
@@ -232,16 +232,27 @@ void MainGame::updateBullets() {
       for(int j = 1; j < _humans.size(); ) {
         //check collision
         if(_bullets[i].collideWithAgent(_humans[j])) {
+          if(_humans[j]->applyDamage(_bullets[i].getDamage())) {
+          //if the human died, remove it
+          delete _humans[j];
+          _humans[j] = humans.back();
+          _humans.pop_back()
+        } else {
+          ++j;
+        }
 
+        //remove the bullets
+        _bullets[i] = _bullets.back();
+        _bullets.pop_back();
+        ++_numHumansKilled;
+        --i;
+        break;
+      } else {
+        ++j;
         }
       }
     }
-
-
   }
-
-
-
 }
 
 void MainGame::checkVictory() {

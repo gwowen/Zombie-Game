@@ -60,7 +60,7 @@ private:
 
   int _screenWidth, _screenHeight;
 
-  int _fps;
+  float _fps;
 
   int _currentLevel;
 
@@ -69,6 +69,11 @@ private:
   std::vector<Human*> _humans;
 
   std::vector<Zombie*> _zombies;
+
+  std::vector<Bullet> _bullets;
+
+  int _numHumansKilled;
+  int _numZombiesKilled;
 
   GameState _gameState;
 };
