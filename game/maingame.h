@@ -5,8 +5,11 @@
 #include "../engine/glslprogram.h"
 #include "../engine/camera2d.h"
 #include "../engine/inputmanager.h"
+#include "../engine/spritebatch.h"
+
 #include "player.h"
 #include "level.h"
+#include "bullet.h"
 
 class Zombie;
 

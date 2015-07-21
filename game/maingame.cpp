@@ -3,12 +3,15 @@
 #include "../engine/engine.h"
 #include "../engine/timing.h"
 #include "../engine/errors.h"
-#include "zombie.h"
+
 
 #include <SDL2/SDL.h>
 #include <iostream>
 #include <random>
 #include <ctime>
+
+#include "zombie.h"
+#include "gun.h"
 
 
 
@@ -70,7 +73,7 @@ void MainGame::initLevel() {
   _currentLevel = 0;
 
   _player = new Player();
-  _player->init(PLAYER_SPEED, _levels[_currentLevel]->getStartPlayerPos(), &_inputManager);
+  _player->init(PLAYER_SPEED, _levels[_currentLevel]->getStartPlayerPos(), &_inputManager, &_camera, &_bullets);
 
   _humans.push_back(_player);
 
@@ -219,7 +222,7 @@ void MainGame::updateBullets() {
         //remove the bullet
         _bullets[i] = _bullets.back();
         _bullets.pop_back();
-        wasBulletRemove = true;
+        wasBulletRemoved = true;
         --i;
         break;
       } else {
@@ -235,8 +238,8 @@ void MainGame::updateBullets() {
           if(_humans[j]->applyDamage(_bullets[i].getDamage())) {
           //if the human died, remove it
           delete _humans[j];
-          _humans[j] = humans.back();
-          _humans.pop_back()
+          _humans[j] = _humans.back();
+          _humans.pop_back();
         } else {
           ++j;
         }

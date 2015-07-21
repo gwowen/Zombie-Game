@@ -14,7 +14,8 @@ public:
   virtual ~Player();
 
 
-  void init(float speed, glm::vec2 position, Engine::InputManager* inputManager);
+  void init(float speed, glm::vec2 position, Engine::InputManager* inputManager,
+            Engine::Camera2D* camera, std::vector<Bullet>* bullets);
 
   void addGun(Gun* gun);
 
