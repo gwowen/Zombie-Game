@@ -45,6 +45,11 @@ bool Agent::collideWithLevel(const std::vector<std::string>& levelData) {
   return true;
 }
 
+//circular collision
+bool Agent::collideWithAgent(Agent* agent) {
+
+}
+
 void Agent::draw(Engine::SpriteBatch& _spriteBatch) {
 
     static int textureID = Engine::ResourceManager::getTexture("../../game/Textures/circle.png").id;
@@ -58,6 +63,18 @@ void Agent::draw(Engine::SpriteBatch& _spriteBatch) {
     destRect.w = AGENT_WIDTH;
 
     _spriteBatch.draw(destRect, uvRect, textureID, 0.0f, _color);
+
+}
+
+bool Agent::applyDamage(float damage) {
+
+  _health -= damage;
+  //if we died, return true
+  if(_health <= 0) {
+    return true;
+  }
+
+  return false;
 
 }
 
@@ -100,7 +117,7 @@ void Agent::collideWithTile(glm::vec2 tilePos) {
 
   //if either of the depths are > 0, then we have collided
   if(xDepth > 0 && yDepth > 0) {
-    
+
     //check with collision depth is less
     if(std::max(xDepth, 0.0f) < std::max(yDepth, 0.0f)) {
       //x collision depth is smaller so we push in X direction
