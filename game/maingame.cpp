@@ -328,6 +328,12 @@ void MainGame::drawGame() {
     _zombies[i]->draw(_agentSpriteBatch);
   }
 
+  for(int i = 0; i < _bullets.size(); ++i) {
+    _bullets[i].draw(_agentSpriteBatch);
+  }
+
+
+
 
   _agentSpriteBatch.end();
 

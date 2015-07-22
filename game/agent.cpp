@@ -46,8 +46,37 @@ bool Agent::collideWithLevel(const std::vector<std::string>& levelData) {
 }
 
 //circular collision
-bool Agent::collideWithAgent(Agent* agent) {
+bool Agent::collideWithAgent(Agent* collidingAgent) {
 
+  const float MIN_DISTANCE = AGENT_RADIUS * 2.0f;
+
+  //center position of the this agent
+  glm::vec2 centerPosA = _position + glm::vec2(AGENT_RADIUS);
+  //center position of the colliding agent
+  glm::vec2 centerPosB = collidingAgent->getPosition() + glm::vec2(AGENT_RADIUS);
+
+  //distance vector between the two
+  glm::vec2 distVec = centerPosA - centerPosB;
+
+  //length of distance vector
+  float distance = glm::length(distVec);
+  
+  //depth of collision
+  float collisionDepth = MIN_DISTANCE - distance;
+
+  //check the collision depth: if it's less than > 0 then collision
+  if(collisionDepth > 0) {
+    //get the direction times the collision depth so we can push them
+    //away from each other
+    glm::vec2 collisionDepthVec = glm::normalize(distVec) * collisionDepth;
+
+    //push in opposite directions
+    _position += collisionDepthVec / 2.0f;
+    collidingAgent->_position -= collisionDepthVec / 2.0f;
+
+    return true;
+  }
+  return false;
 }
 
 void Agent::draw(Engine::SpriteBatch& _spriteBatch) {
