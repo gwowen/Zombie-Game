@@ -32,6 +32,8 @@ namespace Engine {
     createRenderBatches();
   }
 
+  //The use of the term "draw" here could be somewhat deceptive - we don't draw to the
+  //screen, rather we go and add a glyph which will be drawn by the renderbatch.
   void SpriteBatch::draw(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint texture,
                           float depth, const Color& color) {
 

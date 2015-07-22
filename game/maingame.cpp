@@ -52,7 +52,7 @@ void MainGame::run() {
 void MainGame::initSystems() {
   Engine::init();
 
-  _window.create("Zombie Game", _screenWidth, _screenHeight, 0);
+  _window.create("Attack of the Inferior Zombie Dots", _screenWidth, _screenHeight, 0);
 
   glClearColor(0.7f, 0.7f, 0.7f, 1.0f);
 
