@@ -122,6 +122,8 @@ void MainGame::gameLoop() {
 
     fpsLimiter.begin();
 
+    checkVictory();
+
     processInput();
 
     updateAgents();
