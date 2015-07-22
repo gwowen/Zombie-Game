@@ -40,7 +40,7 @@ Bullet::Bullet(glm::vec2 position, glm::vec2 direction, float damage, float spee
    color.b = 75;
    color.a = 255;
 
-   spriteBatch.draw(destRect, uvRect, Engine::ResourceManager::getTexture("../game/Textures/circle.png").id, 0.0f, color);
+   spriteBatch.draw(destRect, uvRect, Engine::ResourceManager::getTexture("../../game/Textures/circle.png").id, 0.0f, color);
   }
 
   bool Bullet::collideWithAgent(Agent* agent) {
