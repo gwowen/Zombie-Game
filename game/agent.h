@@ -35,7 +35,7 @@ public:
 
 protected:
   glm::vec2 _position;
-  Engine::Color _color;
+  Engine::ColorRGBA8 _color;
   float _speed;
   float _health;
 

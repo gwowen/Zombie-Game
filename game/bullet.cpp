@@ -33,7 +33,7 @@ Bullet::Bullet(glm::vec2 position, glm::vec2 direction, float damage, float spee
 
    const glm::vec4 uvRect(0.0f, 0.0f, 1.0f, 1.0f);
 
-   Engine::Color color;
+   Engine::ColorRGBA8 color;
 
    color.r = 75;
    color.g = 75;

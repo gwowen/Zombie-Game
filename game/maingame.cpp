@@ -124,6 +124,8 @@ void MainGame::gameLoop() {
 
     checkVictory();
 
+    _inputManager.update();
+
     processInput();
 
     updateAgents();

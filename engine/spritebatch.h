@@ -59,7 +59,7 @@ namespace Engine {
     void end();
 
     //adds a glyph to the spritebatch
-    void draw(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint texture, float depth, const Color& color);
+    void draw(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint texture, float depth, const ColorRGBA8& color);
 
     //renders the entire spritebatch to the screen
     void renderBatch();
