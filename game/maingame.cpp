@@ -139,6 +139,8 @@ void MainGame::gameLoop() {
     drawGame();
 
     _fps = fpsLimiter.end();
+
+    std::cout << _fps << std::endl;
   }
 }
 

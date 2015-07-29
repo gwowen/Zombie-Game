@@ -45,11 +45,14 @@ namespace Engine {
       static float prevTicks = SDL_GetTicks();
 
       //ticks for the current frame
-      Uint32 currentTicks = SDL_GetTicks();
+      float currentTicks = SDL_GetTicks();
 
       //calculate the number of ticks (ms) for this frame
-      _frameTime = (float)(currentTicks - prevTicks);
+      _frameTime = currentTicks - prevTicks;
       frameTimes[currentFrame % NUM_SAMPLES] = _frameTime;
+
+      //current ticks is now previous ticks
+      prevTicks = currentTicks;
 
       //the number of frames to average
       int count;
