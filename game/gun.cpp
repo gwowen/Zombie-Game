@@ -1,6 +1,7 @@
 #include "gun.h"
 #include <random>
 #include <ctime>
+#define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/rotate_vector.hpp>
 
 Gun::Gun(std::string name, int fireRate, int bulletsPerShot, float spread,

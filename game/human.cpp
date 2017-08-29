@@ -1,6 +1,7 @@
 #include "human.h"
 #include <ctime>
 #include <random>
+#define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/rotate_vector.hpp>
 
 Human::Human():
